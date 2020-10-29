@@ -26,6 +26,19 @@ Point3D::Point3D(const Point3D & P1)
     c = P1.c;
 }
 
+Point3D & Point3D::operator=(const Point3D & P3)
+    {
+        if (&P3 != this)
+        {
+            a = P3.a;
+            b = P3.b;
+            c = P3.c;
+        }
+
+    return *this;
+    }
+
+
 void Point3D::set_a( int a_ )
 {
     a = a_;
@@ -54,27 +67,4 @@ void Point3D::set_c( int c_ )
 int Point3D::get_c()
 {
     return c;
-}
-
-
-std::vector<Point3D> Point3D::in_the_circle(int r, Point3D center, Point3D P2[20])
-{
-
-    std::vector<Point3D>points_inside;
-
-    int distance_between_center_and_point = 0;
-
-    for (int i = 0; i < 20; i++)
-    {
-        distance_between_center_and_point = sqrt((center.a - P2[i].a)*(center.a - P2[i].a) + (center.b - P2[i].b)*(center.b - P2[i].b) + (center.c - P2[i].c)*(center.c - P2[i].c));
-
-        Point3D temp(P2[i].a, P2[i].b, P2[i].c);
-
-        if (distance_between_center_and_point < r)
-        {
-            points_inside.push_back(temp);
-        }
-    }
-
-    return points_inside;
 }

@@ -1,10 +1,11 @@
 #pragma once
+#include <vector>
 
 using namespace std;
 
 class Point2D
 {
-public:
+private:
 
     int x;
     int y;
@@ -17,6 +18,8 @@ public:
 
     Point2D(const Point2D & P1);
 
+    Point2D & operator=(const Point2D & P2);
+
     void set_x( int x_ );
 
     int get_x();
@@ -25,6 +28,7 @@ public:
 
     int get_y();
 
-    vector <Point2D> in_the_circle (int r, Point2D center, Point2D P2[20]);
+    // operator przypisania dopisz
+    // pola sa publiczbe. zmien na private
 
 };

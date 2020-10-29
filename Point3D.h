@@ -6,7 +6,7 @@ using namespace std;
 
 class Point3D
 {
-public:
+private:
 
     int a;
     int b;
@@ -20,6 +20,8 @@ public:
 
     Point3D(const Point3D & P1);
 
+    Point3D & operator=(const Point3D & P3);
+
     void set_a( int a_ );
 
     int get_a();
@@ -31,7 +33,5 @@ public:
     void set_c( int c_);
 
     int get_c();
-
-    vector<Point3D>in_the_circle(int r, Point3D center, Point3D P2[20]);
 
 };
