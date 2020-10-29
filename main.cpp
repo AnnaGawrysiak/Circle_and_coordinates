@@ -10,19 +10,17 @@
 
 using namespace std;
 
-//int generate();
+void draw2D(vector<Point2D> &coordinates2D);
+
+void draw3D(vector<Point3D> &coordinates3D);
 
 bool if_already_drawn2D( vector <Point2D> P2, Point2D number);
 
-bool if_already_drawn3D( vector <Point3D> P3, Point3D number); // nazwy mylace. 2 sgeruje, ze jest do 2D
+bool if_already_drawn3D( vector <Point3D> P3, Point3D number);
 
 int main()
 {
-    // losowanie punktow (moze byc osobna klasa generator)
-
     srand( time( 0 ) );
-
-    // robimy tablice punktow
 
     vector<Point2D> coordinates;
 
@@ -33,89 +31,61 @@ int main()
     coordinates.push_back(my_middle);
 
     for (int i = 0; i < size; i++)
-    {
-        int number_x = ((rand()%100)+ 0);
+        {
+            draw2D(coordinates);
+        }
 
-        int number_y = ((rand()%100)+ 0); // stworz lokalne inty i loklane punkty, ktore beda to mialy
-
-        Point2D number2D(number_x, number_y);
-
-            if (if_already_drawn2D(coordinates, number2D) == 0 )
-            {
-               coordinates.push_back(number2D);
-            }
-    }
-
-    // losowanie do osobnej fukcji. Moze byc w mainie. Moze byc w klasie generator.
-
-    // tutaj wchdzi klasa circle
     int radius = 20;
 
     circle my_circle(radius, my_middle);
 
     vector <Point2D> myvector;
 
-    for (int i = 0; i < coordinates.size(); i++)
-    {
-        if (my_circle.if_in_the_circle(coordinates[i])) //nie trzeba robic == true
-            {
-               myvector.push_back(coordinates[i]);
-            }
-    }
+     for (auto it= coordinates.begin(); it!= coordinates.end(); ++it)
+           {
+               if (my_circle.if_in_the_circle((*it)))
+                {
+                   myvector.push_back((*it));
+                }
+           };
 
     cout << "Coordinates of 2D points inside of the circle: "<< endl;
 
-    for (int i = 0; i < myvector.size(); i++)
-   {
-       cout << "x coordinates: " << myvector[i].get_x() << "  y coordinates: " << myvector[i].get_y() << endl;
-   }
-
-   // stworz osobna klase (SFERA)
+        for (auto it= myvector.begin(); it!= myvector.end(); ++it)
+           {
+               cout << "x coordinates: " << (*it).get_x() << "  y coordinates: " << (*it).get_y() << endl;
+           }
 
     vector<Point3D> coordinates3D;
 
     Point3D the_middle3D(21, 25, 28);
 
-     for (int i = 0; i < 20; i++)
-    {
+    coordinates3D.push_back(the_middle3D);
 
-        Point3D number3D(0,0, 0);
+    for (int i = 0; i < size; i++)
+        {
+            draw3D(coordinates3D);
+        }
 
-        number3D.set_a((rand()%100)+ 0);
-
-        number3D.set_b((rand()%100)+ 0);
-
-        number3D.set_c((rand()%100)+ 0);
-
-            if (if_already_drawn3D(coordinates3D, number3D) == 0)
-            {
-               coordinates3D[i].set_a(number3D.get_a());
-
-               coordinates3D[i].set_b(number3D.get_b());
-
-               coordinates3D[i].set_c(number3D.get_c());
-            }
-
-    };
-
-sphere my_sphere(radius, the_middle3D);
+    sphere my_sphere(radius, the_middle3D);
 
    vector <Point3D> myvector3D;
 
-    for (int i = 0; i < coordinates3D.size(); i++)
+    for (auto it= coordinates3D.begin(); it!= coordinates3D.end(); ++it)
     {
-        if (my_sphere.if_in_the_sphere(coordinates3D[i])) //nie trzeba robic == true
+        if (my_sphere.if_in_the_sphere((*it)))
             {
-               myvector3D.push_back(coordinates3D[i]);
+               myvector3D.push_back((*it));
             }
     }
 
-    cout << "Coordinates of 3D points inside of the sphere: "<< endl;
+    cout << endl;
+    cout << "Coordinates of 3D points inside of the sphere: " << endl;
 
-    for (int i = 0; i < myvector3D.size(); i++)
-   {
-       cout << "x coordinates: " << myvector3D[i].get_a() << "  y coordinates: " << myvector3D[i].get_b() <<"  z coordinates: " << myvector3D[i].get_c() << endl;
-   }
+    for (auto it= myvector3D.begin(); it!= myvector3D.end(); ++it)
+        {
+            cout << "x coordinates: " << (*it).get_a() << "  y coordinates: " << (*it).get_b() <<"  z coordinates: " << (*it).get_c() << endl;
+        }
 
     return 0;
 }
@@ -149,3 +119,34 @@ bool if_already_drawn3D( vector <Point3D> P3, Point3D number)
 
         return false;
     }
+
+void draw2D(vector<Point2D> &coordinates2D)
+{
+    int number_x = ((rand()%100)+ 0);
+
+    int number_y = ((rand()%100)+ 0);
+
+        Point2D number2D(number_x, number_y);
+
+
+            if (if_already_drawn2D(coordinates2D, number2D) == 0 )
+            {
+               coordinates2D.push_back(number2D);
+            }
+}
+
+void draw3D(vector<Point3D> &coordinates3D)
+{
+    int number_x = ((rand()%100)+ 0);
+
+    int number_y = ((rand()%100)+ 0);
+
+    int number_z = ((rand()%100)+ 0);
+
+        Point3D number3D(number_x, number_y, number_z);
+
+            if (if_already_drawn3D(coordinates3D, number3D) == 0 )
+            {
+               coordinates3D.push_back(number3D);
+            }
+}
